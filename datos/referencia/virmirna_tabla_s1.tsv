@@ -1,0 +1,45 @@
+codigo	virus	n_mirnas	pmids
+BFV	Bovine foamy virus (BFV)	20	24522910
+BKV	BK polyomavirus (BKV)	2	18684810,24735545
+BLV	Bovine leukemia virus (BLV)	15	22308400,23345446
+BmNPV	Bombyx mori nucleopolyhedrosis virus (BmNPV)	5	20800868
+BoHV1	Bovine herpesvirus 1 (BoHV1)	12	19793906
+BoHV5	Bovine herpesvirus 5 (BoHV5)	5	24385436
+BPCV1	Bandicoot papillomatosis carcinomatosis virus type 1 (BPCV1)	1	21345962
+BPCV2	Bandicoot papillomatosis carcinomatosis virus type 2 (BPCV2)	1	21345962
+DEV	Duck enteritis virus (DEV)	33	22492913
+EBV	Epstein Barr virus (EBV)	52	15118162,16540699,16557291,19091858,19144710,22291592,20808852,17604727,19881953,22100165
+HCV	Hepatitis C virus	1	19144437
+HBV	Herpes B virus (HBV)	74	19144716,21543500
+HCMV	Human cytomegalovirus (HCMV)	28	15782219,16140786,17983268,22715351,22013051
+HHV-6	Human herpesvirus 6B (HHV-6)	8	22114334
+HIV1	Human immunodeficiency virus 1 (HIV-1)	4	15601474,15782219,18299284,15722536
+HPV	Human Papillomavirus (HPV)	9	23936163
+HSV1	Herpes simplex virus 1 (HSV1)	48	16699030,18596690,20181707,22661375,23536669,23512275,19656888
+HSV2	Herpes simplex virus 2 (HSV2)	24	19889786,20181707,19019961
+HvAV	Heliothis virescens ascovirus (HvAV)	1	18614632
+HVSA	Herpesvirus saimiri strain A11 (HVSA)	6	21925386
+HVT	Herpesvirus of turkeys (HVT)	28	19328516,19403687
+ILTV	Infectious laryngotracheitis virus (ILTV)	10	19328516,19728068
+JCV	JC polyomavirus (JCV)	2	18684810
+KSHV	Kaposi sarcoma-associated herpesvirus (KSHV)	30	15782219,15800047,16540699,17500590,21283761,19889781,20566670,15994824,22100165
+MCMV	Mouse cytomegalovirus (MCMV)	28	17928340,17942535
+MCV	Merkel cell polyomavirus (MCV)	2	19046593
+MDV1	Mareks disease virus type 1 (MDV1)	35	16912324,18256158,18430245,21645299,18842708,24449754
+MDV2	Mareks disease virus type 2 (MDV2)	40	17459919,19328516,24449754
+MGHV	Mouse gammaherpesvirus 68 (MGHV)	29	15782219,20668074,23110115,20660200
+OvHV-2	Ovine herpesvirus 2 (OvHV-2)	35	21957125,24849241
+PRV	Pseudorabies virus (PRV)	287	22292087
+PyV	Murine Polyomavirus (PyV)	1	19272626
+RCMV	Rat cytomegalovirus (RCMV)	60	20980502
+RhCMV	Rhesus Cytomegalovirus (RhCMV)	17	22305624
+RLCV	Rhesus lymphocryptovirus (RLCV)	111	16557291,19889779,20219930
+RRV	Rhesus rhadinovirus (RRV)	97	17451774,20655562
+SA12	Simian Agent Polyomavirus (SA12)	1	16189011
+SFV	Semliki Forest virus (SFV)	1	23077310
+SGIV	Singapore grouper iridovirus (SGIV)	16	21559453
+SV40	Simian virus 40 (SV40)	2	15931223
+TTV	Torque teno virus (TTV)	4	24367263
+TuMV	Turnip mosaic virus (TuMV)	82	WO2012/048385A1
+WNV	West Nile Virus (WNV)	1	22080551
+WSSV	White Spot Syndrome virus (WSSV)	40	22832246

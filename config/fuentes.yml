@@ -1,0 +1,157 @@
+# =====================================================================
+# VenomiR v2 — fuentes de datos
+# =====================================================================
+# Este archivo ES la definición de una versión de la base: cambiarlo y
+# volver a ejecutar produce otra release. Nada de URLs escritas dentro
+# de los scripts.
+#
+# Campos de cada fuente:
+#   descripcion : para qué sirve
+#   version     : la versión EXACTA que se usa (nunca "la última")
+#   fecha       : fecha de publicación de esa versión
+#   prioridad   : 1 = su nombre manda cuando dos fuentes nombran la misma
+#                 secuencia (ver tabla `alias`, columna es_principal)
+#   cita        : DOI o PMID del artículo que hay que citar
+#   archivos    : qué se descarga
+# =====================================================================
+
+release: "2026.12-dev"
+
+# =====================================================================
+# UNIVERSO: qué especies entran en la base
+# =====================================================================
+# miRBase trae 323 especies. Si se cargan todas, los casos de cotejo
+# dejan de significar nada: los miRNAs están muy conservados, así que
+# "misma secuencia en varias especies" le pasa a casi todo (let-7 es
+# idéntico en decenas de animales) y tapa lo que sí queremos ver, que
+# es la confusión entre virus, y entre virus y humano.
+#
+# Por eso el universo es: humano + todo lo viral.
+# El humano hace falta porque es el competidor: sin él no se puede
+# saber si una lectura viral es en realidad humana.
+#
+# La regla de abajo es PROVISIONAL: decide por el texto del nombre de
+# especie. Se sustituirá en el paso A6 por el linaje de NCBI Taxonomy,
+# que es el criterio correcto. Mientras tanto, 03_cotejar.py escribe
+# datos/universo_especies.tsv con todas las especies aceptadas para
+# poder revisarlas a ojo.
+universo:
+  especies_exactas:
+    - "Homo sapiens"
+  especies_patron: "virus|viroid|phage|herpes|polyomavirus|papillomavirus"
+
+fuentes:
+
+  # -------------------------------------------------------------------
+  # miRBase: la referencia principal. Aporta miRNAs humanos Y virales.
+  # Comprobado el 25/11/2026: la 23.1 no añade NINGUNA secuencia viral
+  # nueva respecto a la 22; solo renombra 84 (sufijos -5p/-3p).
+  # OJO: el servidor sirve los .fa envueltos en HTML; hay que limpiarlos
+  # (lo hace scripts/02_normalizar.py).
+  # -------------------------------------------------------------------
+  - nombre: mirbase
+    version: "23.1"
+    fecha: "2026-09"
+    prioridad: 1
+    descripcion: "miRNAs maduros y precursores, humanos y virales"
+    cita: "10.1093/nar/gky1141"
+    url_base: "https://mirbase.org/download/CURRENT"
+    archivos:
+      - {nombre: mature.fa,   url: "https://mirbase.org/download/CURRENT/mature.fa"}
+      - {nombre: hairpin.fa,  url: "https://mirbase.org/download/CURRENT/hairpin.fa"}
+      - {nombre: miRNA.diff,  url: "https://mirbase.org/download/CURRENT/miRNA.diff"}
+
+  # -------------------------------------------------------------------
+  # miRBase 22: NO aporta secuencias nuevas. Se descarga solo para
+  # recuperar los NOMBRES ANTIGUOS (caso 5), que son los que lleva la
+  # matriz de miRDeep2 que ya tenemos. Sin esto no podríamos traducir
+  # los resultados viejos a los nombres nuevos.
+  # -------------------------------------------------------------------
+  - nombre: mirbase
+    version: "22"
+    fecha: "2018-03"
+    prioridad: 4
+    descripcion: "Versión histórica, solo para la tabla de equivalencias de nombres"
+    cita: "10.1093/nar/gky1141"
+    url_base: "https://mirbase.org/download/PREVIOUS_RELEASES/22"
+    archivos:
+      - {nombre: mature.fa,  url: "https://mirbase.org/download_version_files/22/mature.fa"}
+      - {nombre: hairpin.fa, url: "https://mirbase.org/download_version_files/22/hairpin.fa"}
+
+  # -------------------------------------------------------------------
+  # VIRmiRNA (2014): miRNAs virales validados experimentalmente.
+  #
+  # PROBLEMA Y SOLUCIÓN (importante, leer docs/02_fuentes.md):
+  # El servidor original (crdd.osdd.net) lleva caído desde al menos el
+  # 25/11/2026. No se puede partir de la tabla que usó el pipeline de
+  # 2022 porque no está publicada en ningún sitio: no sería reproducible
+  # por nadie de fuera.
+  # Se usan dos fuentes citables y permanentes:
+  #   (a) las páginas archivadas en Wayback Machine, que SÍ contienen
+  #       nombre, virus, SECUENCIA y PMID de cada miRNA;
+  #   (b) la Tabla S1 del artículo (material suplementario, con DOI),
+  #       que da cuántos miRNAs tiene cada virus -> sirve para COMPROBAR
+  #       que la recuperación está completa (1308 miRNAs, 44 virus).
+  # El script guarda el timestamp real de cada snapshot en el MANIFEST,
+  # así que la descarga es repetible tal cual.
+  # -------------------------------------------------------------------
+  - nombre: virmirna
+    version: "2014-wayback"
+    fecha: "2014-11"
+    prioridad: 2
+    descripcion: "miRNAs virales validados; recuperado de snapshots archivados"
+    cita: "10.1093/database/bau103"   # Qureshi et al., Database 2014;2014:bau103
+    wayback:
+      url_patron: "http://crdd.osdd.net/servers/virmirna/browse.php?by={codigo}&TYPE=Virus"
+      fecha_objetivo: "20170721"      # se usa el snapshot más cercano y se registra cuál
+      # Los 44 códigos de virus, tal como los escribe el servidor.
+      # Coinciden exactamente con los 44 virus de la Tabla S1 del artículo.
+      codigos: [BFV, BKV, BLV, BPCV1, BPCV2, BmNPV, BoHV1, BoHV5, DEV, EBV,
+                HBV, HCMV, HCV, "HHV-6", HIV1, HPV, HSV1, HSV2, HVSA, HVT,
+                HvAV, ILTV, JCV, KSHV, MCMV, MCV, MDV1, MDV2, MGHV, "OvHV-2",
+                PRV, PyV, RCMV, RLCV, RRV, RhCMV, SA12, SFV, SGIV, SV40,
+                TTV, TuMV, WNV, WSSV]
+    validacion:
+      # datos/referencia/virmirna_tabla_s1.tsv viene del suplementario del
+      # artículo; el script 04 comprueba los recuentos contra él.
+      tabla: "datos/referencia/virmirna_tabla_s1.tsv"
+      total_esperado: 1308
+
+  # -------------------------------------------------------------------
+  # AntiVIRmiR (2022) = VIRmiRNA2 + AntiVmiR + DEmiRVIR + VIRmiRTar2.
+  # PENDIENTE: el servidor (bioinfo.imtech.res.in) también está caído y
+  # el suplementario del artículo es solo un PDF. Sin acceso a los datos
+  # no se puede integrar todavía.
+  # Cuando se consiga, entra como una fuente más: sus miRNAs humanos se
+  # cotejan igual que todo lo demás (no se da por hecho que ya estén en
+  # miRBase), y aporta la marca antiviral/proviral.
+  # -------------------------------------------------------------------
+  - nombre: antivirmir
+    version: "2022"
+    fecha: "2022-09"
+    prioridad: 3
+    descripcion: "VIRmiRNA2 (virales) + AntiVmiR (humanos antivirales). PENDIENTE DE ACCESO"
+    cita: "10.3389/fgene.2022.971852"
+    estado: pendiente          # el script lo salta y lo avisa
+    url_base: "https://bioinfo.imtech.res.in/manojk/antivirmir"
+
+  # -------------------------------------------------------------------
+  # Genomas y taxonomía: no aportan miRNAs, pero hacen falta para
+  # recuperar horquillas, comprobar la anotación y marcar lo que se
+  # parece a secuencias humanas. Se añaden en el paso A5-A7.
+  # -------------------------------------------------------------------
+  - nombre: refseq_viral
+    version: "238"
+    fecha: "2026-11-09"
+    prioridad: 9
+    descripcion: "Genomas virales de referencia"
+    estado: pendiente
+    url_base: "https://ftp.ncbi.nlm.nih.gov/refseq/release/viral"
+
+  - nombre: genoma_humano
+    version: "GRCh38.p14 / GENCODE 50"
+    fecha: "2026-06"
+    prioridad: 9
+    descripcion: "Genoma humano, para competencia de mapeo y marca de similitud"
+    estado: pendiente
+    url_base: "https://www.gencodegenes.org/human"

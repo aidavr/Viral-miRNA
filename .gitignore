@@ -1,0 +1,24 @@
+# Los datos descargados NO van al repositorio: se regeneran con los scripts.
+# Lo que hace reproducible el trabajo es el código + config/fuentes.yml +
+# el MANIFEST (procedencia), no subir gigas de FASTA.
+#
+# OJO con la sintaxis: si excluyes una CARPETA ('datos/crudo/'), git no mira
+# dentro y la excepción '!datos/crudo/MANIFEST.tsv' no sirve de nada. Hay que
+# excluir su CONTENIDO ('datos/crudo/*') para poder rescatar un archivo.
+datos/crudo/*
+!datos/crudo/MANIFEST.tsv
+datos/normalizado/
+datos/*.sqlite
+datos/*.sqlite-journal
+datos/universo_especies.tsv
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,14 @@
+# Entorno mínimo para construir la base.
+#   conda env create -f environment.yml
+#   conda activate venomir-v2
+name: venomir-v2
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.12
+  - pyyaml
+  # Pendientes, para los pasos A5-A7 (horquillas, taxonomía y similitud):
+  # - viennarna     # RNAfold: comprobar que un candidato pliega en horquilla
+  # - bowtie        # alinear maduros contra genomas virales y humano
+  # - biopython     # leer genomas y extraer regiones
