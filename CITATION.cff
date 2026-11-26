@@ -22,7 +22,7 @@ authors:
     affiliation: "Centro Nacional de Microbiología, Instituto de Salud Carlos III"
     # orcid: "https://orcid.org/0000-0000-0000-0000"
 license: MIT
-repository-code: "https://github.com/aidavr/venomir-v2"
+repository-code: "https://github.com/aidavr/Viral-miRNA"
 keywords:
   - microRNA
   - viral miRNA

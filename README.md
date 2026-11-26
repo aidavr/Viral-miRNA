@@ -1,5 +1,8 @@
 # VenomiR v2
 
+> El repositorio se llama **Viral-miRNA**; *VenomiR v2* es el nombre de la base de datos
+> que construye, por continuidad con el pipeline VenomiR anterior.
+
 Base de datos de referencia de microRNAs (miRNAs) **humanos y virales**, construida
 cotejando varias fuentes **por secuencia**, no por nombre.
 
