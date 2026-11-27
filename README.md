@@ -1,6 +1,6 @@
 # VenomiR v2
 
-> El repositorio se llama **Viral-miRNA**; *VenomiR v2* es el nombre de la base de datos
+> El repositorio se llama **Viral-miRNA**; *VenomiR* es el nombre de la base de datos
 > que construye, por continuidad con el pipeline VenomiR anterior.
 
 Base de datos de referencia de microRNAs (miRNAs) **humanos y virales**, construida
@@ -13,25 +13,6 @@ miRNAs humanos parecidos: el problema que motiva todo esto.
 > cotejo y validación). Pendientes: horquillas desde genoma, taxonomía NCBI, marca de
 > similitud con el genoma humano y exportación a FASTA/GFF3.
 
----
-
-## El problema
-
-En el análisis previo, un miRNA atribuido al herpesvirus del pavo (`hvt-miR-H14-3p`,
-488.233 lecturas en el 100 % de las muestras) resultó ser **hsa-miR-221-3p**, un miRNA
-humano. Y otro atribuido al virus de la mancha blanca del camarón era una repetición
-`(GAA)n` del genoma humano.
-
-Pasó por dos motivos:
-
-1. Las lecturas solo se alinearon contra genomas **virales**. Si una lectura humana se
-   parece a un miRNA viral, no tiene otro sitio al que ir: se cuenta como viral.
-2. La referencia se construyó uniendo bases de datos **por nombre**. Cuando dos bases
-   llaman distinto a la misma secuencia, esa molécula se cuenta dos veces; cuando dos
-   virus comparten secuencia, no queda registro de la ambigüedad.
-
-VenomiR v2 ataca el segundo problema (la referencia). El primero se resuelve en el
-pipeline de muestras, mapeando humano y virus **a la vez**.
 
 ---
 
