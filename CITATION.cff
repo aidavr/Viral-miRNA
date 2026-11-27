@@ -1,15 +1,10 @@
 # Archivo de citación en formato CFF (Citation File Format).
 # GitHub lo lee y muestra un botón "Cite this repository".
 # Es uno de los requisitos FAIR: que se sepa a quién citar y cómo.
-#
-# REVISAR ANTES DE PUBLICAR:
-#   - comprobar que el nombre está como quieres que aparezca
-#   - añadir tu ORCID en `orcid:` (si no tienes, se crea en orcid.org)
-#   - añadir coautores si los hay
-#   - cuando se publique una versión en Zenodo, poner aquí su DOI
+
 cff-version: 1.2.0
 message: "Si usas este software, cítalo así."
-title: "VenomiR v2: base de referencia de miRNAs humanos y virales cotejada por secuencia"
+title: "VenomiR: base de referencia de miRNAs humanos y virales cotejada por secuencia"
 abstract: >-
   Pipeline reproducible que construye una base de datos de referencia de miRNAs
   humanos y virales uniendo varias fuentes (miRBase, VIRmiRNA) cotejadas por
@@ -20,7 +15,7 @@ authors:
   - given-names: Aida
     family-names: Vaquero Rey
     affiliation: "Centro Nacional de Microbiología, Instituto de Salud Carlos III"
-    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    # orcid: "https://orcid.org/0000-0002-1111-3049"
 license: MIT
 repository-code: "https://github.com/aidavr/Viral-miRNA"
 keywords:
